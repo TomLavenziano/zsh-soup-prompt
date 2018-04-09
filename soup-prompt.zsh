@@ -51,7 +51,7 @@ function  prompt_soup_human_time() {
 function prompt_soup_pwd() {
   # Get repo root dir name if its present in our path
   local repo="${$(git rev-parse -q --show-toplevel 2> /dev/null):t}"
-  n=1 # n = number of directories to show in full (n = 3, /u/b/c/dfull/efull/ffull)
+  n=6 # n = number of directories to show in full (n = 3, /u/b/c/dfull/efull/ffull)
   pwd=${${PWD}/#${HOME}/\~}
 
   # split our path on /
@@ -98,11 +98,11 @@ function prompt_soup_precmd() {
 
   local is_dirty=$(prompt_soup_git_dirty)
   if test -z "$is_dirty"; then
-    zstyle ':vcs_info:git*' formats '%F{white}%b %F{green}✔%f'
-    zstyle ':vcs_info:git*' actionformats '%F{white}%b|%a %F{green}✔%f'
+    zstyle ':vcs_info:git*' formats '%F{white}%b%F{green} ✔%f'
+    zstyle ':vcs_info:git*' actionformats '%F{white}%b|%a%F{green} ✔%f'
   else
-    zstyle ':vcs_info:git*' formats '%F{white}%b %F{red}⚡%f'
-    zstyle ':vcs_info:git*' actionformats '%F{white}%b|%a %F{red}⚡%f'
+    zstyle ':vcs_info:git*' formats '%F{white}%b%F{red}⚡%f'
+    zstyle ':vcs_info:git*' actionformats '%F{white}%b|%a%F{red}⚡%f'
   fi
 
   # note: set format per dirty repo status, then get vcs info
@@ -162,7 +162,7 @@ function prompt_soup_setup() {
   # λ ∆ △ ▶
 	PROMPT='
 ${_prompt_soup_execute_time}${_prompt_soup_username}${_prompt_soup_pwd} ${vcs_info_msg_0_}
-%(?.%F{magenta}.%F{red})λ%f%{$reset_color%} '
+%F{red} ► %D{%L:%M %p}%f %(?.%F{magenta}.%F{red})λ%f%{$reset_color%} '
   PS2="       ... "
   SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
 }
